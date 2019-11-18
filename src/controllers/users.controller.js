@@ -447,7 +447,7 @@ usersCtrl.getNearby = async (req,res)=>{
         longitude = user.location.coordinates[1],
         language = user.language,
         interests = user.interests,
-        rad = 100;
+        rad = 200;
 
     var nearby_places = new Object();
 
