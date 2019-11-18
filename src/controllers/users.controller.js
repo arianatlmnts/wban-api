@@ -196,6 +196,7 @@ usersCtrl.getInputs = async (req,res)=>{
         res.json("User with id "+req.params.id+" does not exist");
     });
 };
+
 usersCtrl.createInput = async (req,res)=>{
     const { name, status, type, units, min_value, max_value } = req.body;
     const newInput = new Input({
@@ -244,6 +245,7 @@ usersCtrl.getOutputs = async (req,res)=>{
         res.json("User with id "+req.params.id+" does not exist");
     });
 };
+
 usersCtrl.createOutput = async (req,res)=>{
     const { name, status, type, units, min_value, max_value, value } = req.body;
     const newOutput = new Output({
@@ -447,7 +449,7 @@ usersCtrl.getNearby = async (req,res)=>{
         longitude = user.location.coordinates[1],
         language = user.language,
         interests = user.interests,
-        rad = 200;
+        rad = 100;
 
     var nearby_places = new Object();
 
