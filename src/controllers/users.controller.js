@@ -170,7 +170,7 @@ usersCtrl.deleteModule = async (req,res)=> {
     const user = await User.findById(req.params.id).then(async (user)=>{
         const modulo = await Module.findById(req.params.module_id).then(async (modulo)=>{
             await Module.findByIdAndDelete(req.params.module_id);
-            res.json({message:'Module does not exist'});
+            res.json({message:'Module deleted'});
         }).catch((error)=>{
             res.status(404);
             res.json("Module "+req.params.module_id+" in user "+req.params.id+" does not exist");
@@ -451,6 +451,10 @@ usersCtrl.getNearby = async (req,res)=>{
         interests = user.interests,
         rad = 100;
 
+    if (req.query.radius){
+        rad = req.query.radius;
+    }
+
     var nearby_places = new Object();
 
     nearby_places.from_coordinates = user.location.coordinates;
@@ -488,10 +492,6 @@ usersCtrl.getNearby = async (req,res)=>{
                 object.total_distance = body_routes.routes[0].legs[0].distance;
                 object.walking_duration = body_routes.routes[0].legs[0].duration;
                 object.directions = body_routes.routes[0].legs[0].steps;
-
-                if (body.results[j].geometry.opening_hours){
-                    console.log(body.results[j].geometry.opening_hours);
-                };
 
                 result.push(object);
 
